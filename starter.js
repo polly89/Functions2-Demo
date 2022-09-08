@@ -3,7 +3,16 @@
 ////////////////////////
 
 // CODE HERE
+const add = (num1, num2) => num1 + num2;
+const subtract = (num1, num2) => num1 - num2;
+const multiply = (num1, num2) => num1 * num2;
+const divide = (num1, num2) => num1 / num2;
 
+const calculator = (num1, num2, callback) => {
+    return callback(num1, num2)
+}
+
+console.log(calculator(3, 4, multiply))
 
 ///////////////////////
 ////// PET STORE //////
@@ -64,16 +73,48 @@ const catProducts = [
 ]
 
 // CODE HERE
+const applyPercentDiscount = (product, discount) => {
+    product.displayPrice = product.basePrice * (1 - discount)
+}
 
+const applyFlatRateDiscout = (product, discount) => {
+    product.displayPrice = product.basePrice - discount
+}
 
+const applyDiscounts = (arr, callback, discount) => {
+    arr.forEach(product => {
+        callback(product, discount)
+        
+    });
+}
+
+applyDiscounts(dogProducts, applyPercentDiscount, .1)
+console.log(dogProducts)
 
 ////////////////////////
 ////// SANDWICHES //////
 ////////////////////////
 
-// CODE HERE
+function makeSandwich(bread){
+    return function(ingredients){
+        let order = `You ordered a ${bread} sandwich with: `
+        for(let ui = 0; i < ingredients.length; i++){
+            if(i === ingredients.length -1 && i !== 0){
+                order += `and ${ingredients[i]},`
+            }else if(ingredients.length === 1){
+                order += `${ingredients[i]}`
+            }else {
+                order += `${ingredients[i]},`
+            }
+        }
+        return order
+    }
+}
 
+const makeWheatSandwich = makeSandwich('wheat');
+const makeRyeSandwich = makeSandwich('rye');
 
+console.log(makrRyeSandwich(['bacon', 'lettuce', 'tomato']))
 
 ////////////////////////////////////
 ////// COPY AND CHANGE ARRAYS //////
