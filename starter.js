@@ -98,7 +98,7 @@ console.log(dogProducts)
 function makeSandwich(bread){
     return function(ingredients){
         let order = `You ordered a ${bread} sandwich with: `
-        for(let ui = 0; i < ingredients.length; i++){
+        for(let i = 0; i < ingredients.length; i++){
             if(i === ingredients.length -1 && i !== 0){
                 order += `and ${ingredients[i]},`
             }else if(ingredients.length === 1){
@@ -114,7 +114,7 @@ function makeSandwich(bread){
 const makeWheatSandwich = makeSandwich('wheat');
 const makeRyeSandwich = makeSandwich('rye');
 
-console.log(makrRyeSandwich(['bacon', 'lettuce', 'tomato']))
+console.log(makeRyeSandwich(['bacon', 'lettuce', 'tomato']))
 
 ////////////////////////////////////
 ////// COPY AND CHANGE ARRAYS //////
@@ -163,7 +163,37 @@ const copyArrToSnakeCase = arr => {
 }
   
 // CODE HERE
+const copyArrAndChange = (arr, cb) => {
+    let result = [];
+    for (let i = 0; i < arr.length; i++){
+        let newValue = cb(arr[i])
+        result.push(newValue)
+    }
+    return result
+}
 
+const copyStrToCamelCase = str => {
+    const splitStr = str.split(' ')
+    let camelCaseStr = ''
+    for(let x = 0; x < splitStr.length; x++){
+        let word = splitStr[x]
+        word = word.toLowerCase()
+        if (x !== 0) {
+            word = word.chartAt(0).toUpperCase() + word.slice(1)
+        }
+        camelCaseStr += word
+    }
+    return camelCaseStr
+}
+
+
+const copyStrToSnakeCase = str => {
+    str = str.toLowerCase()
+    const splitStr = str.split(' ')
+    const snakeCaseStr = splitStr.join('_')
+    return snakeCaseStr
+}
+console.log(copyArrAndChange(lotr, copyStrToSnakeCase))
 
 ////////////////////////////////////////
 ////// HIGHER ORDER ARRAY METHODS //////
@@ -179,8 +209,9 @@ const copyArrToSnakeCase = arr => {
 
 const colors = ['red', 'blue', 'yellow', 'green', 'orange']
 
-const mappedColors // = colors.map()
+const mappedColors = colors.map (()=> 'pink')
 
+console.log(mappedColors)
 /*
     Edit the formalGreeting function and use the built in .map method 
     to map over the names parameter and return a new array with "Hello, " 
@@ -192,11 +223,11 @@ const mappedColors // = colors.map()
 const formalNames = ['Bernard', 'Elizabeth', 'Conrad', 'Mary Margaret']
 
 const formalGreeting = names => {
-    // CODE HERE
+    return names.map((name) => `Hello, ${name}`);   
 }
 
 // Call formalGreeting passing in the formalNames array
-
+console.log(formalGreeting(formalNames))
 
 //// FILTER ////
 
@@ -207,7 +238,9 @@ const formalGreeting = names => {
 
 const places = ['Binghampton', 'Albany', 'New York', 'Ithaca', 'Auburn', 'Rochester', 'Buffalo']
 
-const placesThatStartWithA // = places.filter()
+const placesThatStartWithA = places.filter(city => city[0] === "A")
+
+console.log(placesThatStartWithA)
 
 
 /*
@@ -234,8 +267,13 @@ let jobs = [
 
 // CODE HERE
 
-// call the function passing in the jobs array
+const identifier = arr => {
+    const filtered = arr.filter(job => job.programmer)
+    return filtered[0]
+}
 
+// call the function passing in the jobs array
+console.log(identifier(jobs))
 
 //// REDUCE ////
 
@@ -250,11 +288,12 @@ let jobs = [
 const numsToReduce = [43, 7, 24, 79, 290]
 
 const productOfArray = numbers => {
-    // Code here
+   return numbers.reduce((a, c)=> a * c)
 }
 
 // CODE HERE
 
+console.log(productOfArray(numsToReduce))
 
 // call productOfArray passing in numsToReduce
 
@@ -285,4 +324,6 @@ const expenses = [
     }
 ]
 
-const remaining // = expenses.reduce(//callback, //initial value)
+const remaining = expenses.reduce((a, c) => a - c.amount, budget)
+
+console.log(remaining)
